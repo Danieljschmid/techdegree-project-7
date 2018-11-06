@@ -53,7 +53,7 @@ function checkLetter(button) {
     if (letters[i].textContent.toLowerCase() === button ) {
       letters[i].classList.add('show');
     } else {
-      return letterFound = false;
+      return letterFound = null;
     }
   }
 }
