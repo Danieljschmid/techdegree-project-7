@@ -78,9 +78,14 @@ function checkWin() {
     overlay.style.display = 'flex';
     title.textContent = 'Sorry you lost!'
     button.textContent = 'restart';
-   }
   }
-
+  if (overlay.className === 'win' || 'lose') {
+    button.addEventListener('click', (e) => {
+      overlay.style.display = 'none';
+      addPhraseToDisplay(phraseArray);
+    });
+  }
+}
 
 //Add an event listener to the keyboard.
 qwerty.addEventListener('click', (e) => {
