@@ -9,6 +9,8 @@ const startGame = document.querySelector('.btn__reset');
 const overlay = document.getElementById('overlay');
 const title = document.querySelector('.title');
 const button = document.querySelector('.btn__reset');
+const qwertyButtons = qwerty.querySelectorAll('button');
+const heart = document.getElementsByTagName('img');
 
 const phraseUl = document.querySelector('#phrase ul');
 
@@ -32,8 +34,8 @@ function getRandomPhraseArray(arr){
    return charArray;
 }
 //random phrase split array
-const phraseSplit = getRandomPhraseArray(phrases);
 
+const phraseArray = getRandomPhraseArray(phrases);
 //Set the game display
 function addPhraseToDisplay(arr){
     for(let i = 0; i < arr.length; i++){
@@ -47,7 +49,8 @@ function addPhraseToDisplay(arr){
   }
  }
 }
-const phraseArray = getRandomPhraseArray(phrases);
+
+console.log(phraseArray);
 addPhraseToDisplay(phraseArray);
 
 // function to check if letter chosen is correct
@@ -68,23 +71,31 @@ function checkLetter(button) {
 function checkWin() {
   const show = document.querySelectorAll('.show');
   const letter = document.querySelectorAll('.letter');
+  let newPhrase = getRandomPhraseArray(phrases);
   if (show.length === letter.length ) {
     overlay.className = 'win';
     overlay.style.display = 'flex';
     title.textContent = 'You Won!'
     button.textContent = 'restart';
-  } else if (missed >= 5) {
+  } else if (missed === 5) {
     overlay.className = 'lose';
     overlay.style.display = 'flex';
     title.textContent = 'Sorry you lost!'
     button.textContent = 'restart';
   }
-  if (overlay.className === 'win' || 'lose') {
-    button.addEventListener('click', (e) => {
+  // if (overlay.className === 'win') {
+    startGame.addEventListener('click', (e) => {
+      missed = 0;
+      phraseUl.textContent = '';
       overlay.style.display = 'none';
-      addPhraseToDisplay(phraseArray);
+      for (i = 0; i < qwertyButtons.length; i++) {
+        qwertyButtons[i].removeAttribute('class');
+        qwertyButtons[i].removeAttribute('disabled');
+      }
+      addPhraseToDisplay(newPhrase);
+      console.log(newPhrase);
     });
-  }
+  //}
 }
 
 //Add an event listener to the keyboard.
@@ -100,7 +111,6 @@ qwerty.addEventListener('click', (e) => {
     //Count the missed guesses in the game.
     let letterFound = checkLetter(button);
     if (letterFound === null) {
-    const heart = document.getElementsByTagName('img');
     for (let i = 0; i < heart.length; i++) {
       heart[missed].src = 'images/lostHeart.png';
       }
