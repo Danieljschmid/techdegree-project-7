@@ -88,6 +88,9 @@ function checkWin() {
       missed = 0;
       phraseUl.textContent = '';
       overlay.style.display = 'none';
+      for (let i = 0; i < heart.length; i++) {
+        heart[i].src = 'images/liveHeart.png';
+      }
       for (i = 0; i < qwertyButtons.length; i++) {
         qwertyButtons[i].removeAttribute('class');
         qwertyButtons[i].removeAttribute('disabled');
